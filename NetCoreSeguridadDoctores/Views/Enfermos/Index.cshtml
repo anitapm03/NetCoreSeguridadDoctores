@@ -1,0 +1,64 @@
+﻿@model IEnumerable<NetCoreSeguridadDoctores.Models.Enfermo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEnfermo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaNac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.S)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NSS)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEnfermo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaNac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NSS)
+            </td>
+                @if (Context.User.IsInRole("DIAGNOSTICO") == true
+                    || Context.User.IsInRole("Cardiología") == true)
+                {
+                    <td>
+                        @Html.ActionLink("Eliminar", "Confirmar", "Doctores", new { idenfermo=item.IdEnfermo })
+                    </td>
+                }
+        </tr>
+}
+    </tbody>
+</table>

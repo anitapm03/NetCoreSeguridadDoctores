@@ -1,0 +1,9 @@
+﻿@model Enfermo
+
+<h1>Seguro que quiere eliminar al enfermo: </h1>
+
+<h2>@Model.Apellido, @Model.IdEnfermo</h2>
+
+<a asp-action="EliminarEnfermo" asp-controller="Doctores"
+class="btn btn-danger" asp-route-idenfermo="@Model.IdEnfermo"
+>Eliminar</a>
