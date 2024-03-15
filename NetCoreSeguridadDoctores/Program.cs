@@ -17,6 +17,15 @@ builder.Services.AddTransient<RepositoryEnfermos>();
 builder.Services.AddDbContext<HospitalContext>
     (options => options.UseSqlServer(connectionString));
 
+//incluimos la politica para el acceso a determinados roles
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("PERMISOSELEVADOS",
+   policy => policy.RequireRole("DIAGNOSTICO", "Cardiología", "Psiquiatría"));
+    options.AddPolicy("AdminOnly",
+   policy => policy.RequireClaim("Administrador"));
+});
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme =
@@ -25,7 +34,13 @@ builder.Services.AddAuthentication(options =>
     CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme =
     CookieAuthenticationDefaults.AuthenticationScheme;
-}).AddCookie();
+}).AddCookie(
+    CookieAuthenticationDefaults.AuthenticationScheme,
+    config =>
+    {
+        config.AccessDeniedPath = "/Managed/ErrorAcceso";
+    }
+    );
 
 var app = builder.Build();
 

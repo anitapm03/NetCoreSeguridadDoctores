@@ -48,6 +48,14 @@ namespace NetCoreSeguridadDoctores.Controllers
                     new Claim(ClaimTypes.Role, doctor.Especialidad);
                 identity.AddClaim(claimEspecialidad);
 
+                //incluimos un claim inventado que solamente tendra un doctor
+                if(doctor.IdDoctor == 983)
+                {
+                    //creamos su propio y unico claim
+                    identity.AddClaim
+                        (new Claim("Administrador", "Soy el admin"));
+                }
+
                 Claim claimSalario =
                     new Claim("Salario", doctor.Salario.ToString());
                 identity.AddClaim(claimSalario);

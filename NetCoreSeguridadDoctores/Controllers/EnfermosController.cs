@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NetCoreSeguridadDoctores.Filters;
 using NetCoreSeguridadDoctores.Models;
 using NetCoreSeguridadDoctores.Repositories;
 
@@ -12,6 +13,7 @@ namespace NetCoreSeguridadDoctores.Controllers
         {
             this.repo = repo;
         }
+        [AuthorizeDoctores(Policy = "PERMISOSELEVADOS")]
         public IActionResult Index()
         {
             List<Enfermo> enfermos = this.repo.GetEnfermos();

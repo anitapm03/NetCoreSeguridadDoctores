@@ -35,7 +35,7 @@ namespace NetCoreSeguridadDoctores.Controllers
             return View();
         }
 
-        [AuthorizeDoctores]
+        [AuthorizeDoctores(Policy = "PERMISOSELEVADOS")]
         public async Task<IActionResult> EliminarEnfermo(int idenfermo)
         {
             //int idenfermo = int.Parse(TempData["ENFERMO"].ToString());
@@ -50,6 +50,11 @@ namespace NetCoreSeguridadDoctores.Controllers
             Enfermo e = await this.repoEnfermos.FindEnfermoAsync(idenfermo);
             return View(e);
         }
-        
+
+        [AuthorizeDoctores(Policy = "AdminOnly")]
+        public IActionResult AdminDoctores()
+        {
+            return View();
+        }
     }
 }

@@ -51,13 +51,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NSS)
             </td>
-                @if (Context.User.IsInRole("DIAGNOSTICO") == true
-                    || Context.User.IsInRole("Cardiología") == true)
-                {
+                
                     <td>
                         @Html.ActionLink("Eliminar", "Confirmar", "Doctores", new { idenfermo=item.IdEnfermo })
                     </td>
-                }
+                
         </tr>
 }
     </tbody>
